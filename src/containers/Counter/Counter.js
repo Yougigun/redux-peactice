@@ -26,21 +26,28 @@ class Counter extends Component {
     }
 
     render () {
+        console.log(this.props.ctr);
         return (
             <div>
                 <CounterOutput value={this.props.ctr} />
-                <CounterControl label="Increment" clicked={() => this.counterChangedHandler( 'inc' )} />
-                <CounterControl label="Decrement" clicked={() => this.counterChangedHandler( 'dec' )}  />
-                <CounterControl label="Add 5" clicked={() => this.counterChangedHandler( 'add', 5 )}  />
-                <CounterControl label="Subtract 5" clicked={() => this.counterChangedHandler( 'sub', 5 )}  />
+                <CounterControl label="Increment" clicked={() =>{this.props.onChangeAmount(1)}} />
+                <CounterControl label="Decrement" clicked={() =>{this.props.onChangeAmount(-1)}}  />
+                <CounterControl label="Add 5" clicked={() =>{this.props.onChangeAmount(5)}}  />
+                <CounterControl label="Subtract 5" clicked={() =>{this.props.onChangeAmount(-5)}}  />
             </div>
         );
     }
 }
+
 const mapStateToProps = state =>{
     return {
         ctr :state.counter
     }
 }
 
-export default connect(mapStateToProps)(Counter);
+const mapDispatchToProps = dispatch => {
+    return {
+        onChangeAmount:(value)=>dispatch({type:"onChangeAmount",value})
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Counter);
