@@ -9,23 +9,6 @@ class Counter extends Component {
         counter: 0
     }
 
-    counterChangedHandler = ( action, value ) => {
-        switch ( action ) {
-            case 'inc':
-                this.setState( ( prevState ) => { return { counter: prevState.counter + 1 } } )
-                break;
-            case 'dec':
-                this.setState( ( prevState ) => { return { counter: prevState.counter - 1 } } )
-                break;
-            case 'add':
-                this.setState( ( prevState ) => { return { counter: prevState.counter + value } } )
-                break;
-            case 'sub':
-                this.setState( ( prevState ) => { return { counter: prevState.counter - value } } )
-                break;
-        }
-    }
-
     render () {
         console.log(this.props.results);
         return (
@@ -36,7 +19,7 @@ class Counter extends Component {
                 <CounterControl label="Add 5" clicked={this.props.onChangeAmount(5)}  />
                 <CounterControl label="Subtract 5" clicked={this.props.onChangeAmount(-5)}  />
                 <hr/>
-                <button onClick={this.props.onStoreResult}>Store Result</button>
+                <button onClick={this.props.onStoreResult(this.props.counter)}>Store Result</button>
                 <ul>
                     {this.props.results.map((result,index)=><li 
                                                         key={index} 
@@ -51,15 +34,15 @@ class Counter extends Component {
 
 const mapStateToProps = state =>{
     return {
-        counter : state.counter,
-        results : state.results
+        counter : state.ctr.counter,
+        results : state.res.results
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         onChangeAmount: (value) =>()=> dispatch({type:actionType.CHANGE_AMOUNT,value}),
-        onStoreResult: () => dispatch({type:actionType.STORE_RESULT}),
+        onStoreResult: (counter) => ()=> dispatch({type:actionType.STORE_RESULT,counter}),
         onDeleteResult: (index) => ()=>dispatch({type:actionType.DELETE_RESULT,index}),
     }
 }
