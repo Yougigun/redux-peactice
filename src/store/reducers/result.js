@@ -4,7 +4,6 @@ const initialState = {
 }
 
 const reducer = (state = initialState, action)=>{
-    console.log(action);
     switch (action.type) {
         case actionType.STORE_RESULT:{
             //or use arr.concat to return 'new' array instead of push
