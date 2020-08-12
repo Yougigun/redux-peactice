@@ -1,4 +1,4 @@
-import * as actionType from '../action'
+import * as actionType from '../action/action'
 const initialState = {
     results:[]
 }
@@ -9,6 +9,7 @@ const reducer = (state = initialState, action)=>{
             //or use arr.concat to return 'new' array instead of push
             const newResult = [...state.results] // make new array
             newResult.push(action.counter)
+
             return {
                 ...state,
                 results:newResult
