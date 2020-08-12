@@ -41,8 +41,11 @@ const mapStateToProps = state =>{
 const mapDispatchToProps = dispatch => {
     return {
         onChangeAmount: (value) =>()=> dispatch(actionType.change_amount(value)),
-        onStoreResult: (counter) => ()=> dispatch(actionType.store_result(counter)),
-        onDeleteResult: (index) => ()=>dispatch(actionType.delete_result(index)),
+        onStoreResult: (counter) => ()=> dispatch(actionType.storeResult(counter)),
+        onDeleteResult: (index) => ()=>dispatch(dispatch => 
+                                                {setTimeout(()=>
+                                                    dispatch(actionType.delete_result(index)),2000)
+                                                }),
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Counter);
